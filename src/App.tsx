@@ -1,12 +1,7 @@
-import { SkipHireContextProvider } from "./providers";
-import { SkipHire } from "./containers";
+import { AppRoutes } from "./AppRoutes";
 
 function App() {
-  return (
-    <SkipHireContextProvider>
-      <SkipHire />
-    </SkipHireContextProvider>
-  );
+  return <AppRoutes />;
 }
 
 export default App;
