@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import SkipCard from "../SkipCard";
-import FooterBar from "../FooterBar/FooterBar";
+import StepFooter from "../StepFooter/StepFooter";
 import { SkipHireContext } from "../../contexts";
 import { useSkipsByLocation } from "../../hooks";
 import type { Skip } from "../../types/Skip";
@@ -58,7 +58,7 @@ export default function SkipSelection() {
           ))}
         </div>
       )}
-      {skipSelected && <FooterBar />}
+      {skipSelected && <StepFooter />}
     </div>
   );
 }
