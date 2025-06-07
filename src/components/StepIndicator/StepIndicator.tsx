@@ -14,6 +14,7 @@ export default function StepIndicator({ steps }: StepIndicatorProps) {
   const { state, dispatch } = useContext(SkipHireContext)!;
   const { currentStepIndex } = state;
 
+  // Handles step navigation when a step is clicked, only if it's clickable
   const handleStepClick = useCallback(
     (idx: number, isClickable: boolean) => {
       if (isClickable) {
@@ -32,6 +33,7 @@ export default function StepIndicator({ steps }: StepIndicatorProps) {
           const isClickable = idx <= currentStepIndex;
           const iconName = isCompleted ? "CheckMark" : step.iconName;
 
+          // Render each step with its icon and label, and a connecting line if not the last step
           return (
             <React.Fragment key={step.key}>
               <li className={`flex items-center lg:space-x-2`}>

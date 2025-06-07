@@ -16,6 +16,7 @@ const initialState: SkipHireState = {
 export default function SkipHireContextProvider({
   children,
 }: SkipProviderProps) {
+  // Initialize state from localStorage if available, otherwise use initialState
   const [state, dispatch] = useReducer(skipReducer, initialState, (init) => {
     try {
       const stored = localStorage.getItem("selectedSkip");
@@ -30,6 +31,7 @@ export default function SkipHireContextProvider({
     return init;
   });
 
+  // Persist skipSelected to localStorage whenever it changes
   useEffect(() => {
     if (state.skipSelected) {
       localStorage.setItem("selectedSkip", JSON.stringify(state.skipSelected));
@@ -38,6 +40,7 @@ export default function SkipHireContextProvider({
     }
   }, [state.skipSelected]);
 
+  // Memoize context value to prevent unnecessary re-renders
   const reducerMemo = useMemo(() => ({ dispatch, state }), [state]);
 
   return (

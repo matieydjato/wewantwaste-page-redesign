@@ -16,6 +16,7 @@ export default function SkipSelection() {
     error,
   } = useSkipsByLocation(postcode, area);
 
+  // Toggle skip selection: deselect if already selected, otherwise select
   const handleSelectSkip = (skip: Skip) => {
     if (skipSelected?.id === skip.id) {
       dispatch({ type: CLEAR_SKIP });

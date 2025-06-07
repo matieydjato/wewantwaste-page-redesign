@@ -1,6 +1,10 @@
 import { skipsInstance as axios } from "./axios";
 import type { Skip } from "../types/Skip";
 
+/**
+ * Fetches skips available for a given postcode and area.
+ * Throws an error if the request fails.
+ */
 export async function getSkipsByLocation(
   postcode: string,
   area: string
