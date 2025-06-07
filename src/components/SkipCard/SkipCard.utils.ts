@@ -21,7 +21,7 @@ export function getContainerClasses(isSelected: boolean): string {
 export function getButtonClasses(isSelected: boolean): string {
   const base = [
     "ml-2 px-4 py-2 rounded-lg text-sm font-semibold shadow",
-    "transition-colors duration-150 focus:outline-none",
+    "transition-colors duration-150 focus:outline-none cursor-pointer",
   ];
   const stateStyles = isSelected
     ? "bg-white text-black border border-black hover:bg-gray-100 focus:ring-black"

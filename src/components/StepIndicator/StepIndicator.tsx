@@ -1,5 +1,6 @@
 import React, { useContext, useCallback } from "react";
-import SvgIcon from "../SvgIcon.tsx";
+import SvgIcon from "../SvgIcon";
+import Show from "../Show";
 import { SkipHireContext } from "../../contexts/SkipHireContext";
 import { SET_STEP } from "../../constants/ActionTypes";
 import type { Stepper } from "../../types/Stepper";
@@ -24,10 +25,7 @@ export default function StepIndicator({ steps }: StepIndicatorProps) {
 
   return (
     <nav className="bg-white py-7" aria-label="Progress">
-      <ul
-        className="max-w-6xl mx-auto flex flex-col items-start px-4 sm:px-6 lg:px-8"
-        role="list"
-      >
+      <ul className="max-w-6xl mx-auto flex flex-col items-start px-4 sm:px-6 lg:px-8">
         {steps.map((step, idx) => {
           const isActive = idx === currentStepIndex;
           const isCompleted = idx < currentStepIndex;
@@ -36,35 +34,39 @@ export default function StepIndicator({ steps }: StepIndicatorProps) {
 
           return (
             <React.Fragment key={step.key}>
-              <li
-                className={`flex items-center lg:space-x-2 ${
-                  isClickable ? "cursor-pointer" : "cursor-not-allowed"
-                }`}
-                role="listitem"
-                onClick={() => handleStepClick(idx, isClickable)}
-              >
-                <div className={getStepClasses(isCompleted, isActive)}>
-                  <SvgIcon
-                    name={iconName}
-                    className={getIconClasses(isCompleted, isActive)}
-                  />
-                </div>
-                <span
-                  className={`hidden lg:inline-block text-md font-medium ${
-                    isCompleted || isActive ? "text-gray-900" : "text-gray-400"
+              <li className={`flex items-center lg:space-x-2`}>
+                <button
+                  type="button"
+                  className={`flex items-center lg:space-x-2 ${
+                    isClickable ? "cursor-pointer" : "cursor-not-allowed"
                   }`}
+                  onClick={() => handleStepClick(idx, isClickable)}
                 >
-                  {step.label}
-                </span>
+                  <div className={getStepClasses(isCompleted, isActive)}>
+                    <SvgIcon
+                      name={iconName}
+                      className={getIconClasses(isCompleted, isActive)}
+                    />
+                  </div>
+                  <span
+                    className={`hidden lg:inline-block text-md font-medium ${
+                      isCompleted || isActive
+                        ? "text-gray-900"
+                        : "text-gray-400"
+                    }`}
+                  >
+                    {step.label}
+                  </span>
+                </button>
               </li>
-              {idx < steps.length - 1 && (
+              <Show ifCondition={idx < steps.length - 1}>
                 <div
                   className={`ml-4 w-px h-8 ${
                     idx < currentStepIndex ? "bg-black" : "bg-gray-200"
                   }`}
                   aria-hidden="true"
                 />
-              )}
+              </Show>
             </React.Fragment>
           );
         })}

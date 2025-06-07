@@ -1,5 +1,6 @@
 import { useContext, useCallback } from "react";
 import { SelectionFooter } from "./SelectionFooter";
+import Show from "../Show";
 import { SkipHireContext } from "../../contexts";
 import { PREV_STEP, NEXT_STEP } from "../../constants/ActionTypes";
 import { getStepKey } from "../../services/utils";
@@ -19,7 +20,7 @@ export default function StepFooter() {
 
   return (
     <footer className="fixed bottom-0 left-0 right-0 bg-white shadow-inner border-t border-gray-200 z-10">
-      {currentStepKey === "selectSkip" && (
+      <Show ifCondition={currentStepKey === "selectSkip"}>
         <div className="max-w-6xl mx-auto px-4 pt-3 text-center">
           <p className="text-xs text-gray-500">
             Imagery and information shown throughout this website may not
@@ -27,7 +28,7 @@ export default function StepFooter() {
             options and/or accessories may be featured at additional cost.
           </p>
         </div>
-      )}
+      </Show>
       <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
         <div className="flex items-center space-x-4">
           <SelectionFooter currentStepIndex={currentStepIndex} />

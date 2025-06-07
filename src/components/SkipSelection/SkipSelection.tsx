@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import SkipCard from "../SkipCard/SkipCard";
 import StepFooter from "../StepFooter/StepFooter";
+import Show from "../Show";
 import { useSkipsByLocation } from "../../hooks";
 import { SkipHireContext } from "../../contexts";
 import { SELECT_SKIP, CLEAR_SKIP } from "../../constants/ActionTypes";
@@ -36,44 +37,45 @@ export default function SkipSelection() {
         </p>
       </header>
 
-      {isLoading && (
+      <Show ifCondition={isLoading}>
         <div className="flex justify-center py-16">
           <span className="text-gray-500">Loading skips...</span>
         </div>
-      )}
+      </Show>
 
-      {error && (
+      <Show ifCondition={!!error}>
         <div className="flex justify-center py-16">
-          <span className="text-red-500">Error: {error.message}</span>
+          <span className="text-red-500">Error: {error?.message}</span>
         </div>
-      )}
+      </Show>
 
-      {!isLoading && !error && (
-        <>
-          {skips.length > 0 ? (
-            <div className="w-full max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {skips.map((skip) => (
-                  <SkipCard
-                    key={skip.id}
-                    skip={skip}
-                    isSelected={skipSelected?.id === skip.id}
-                    onSelect={handleSelectSkip}
-                  />
-                ))}
-              </div>
+      <Show ifCondition={!isLoading && !error}>
+        <Show ifCondition={skips.length > 0}>
+          <div className="w-full max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {skips.map((skip) => (
+                <SkipCard
+                  key={skip.id}
+                  skip={skip}
+                  isSelected={skipSelected?.id === skip.id}
+                  onSelect={handleSelectSkip}
+                />
+              ))}
             </div>
-          ) : (
-            <div className="flex justify-center py-16">
-              <span className="text-gray-500">
-                No skips available for this location.
-              </span>
-            </div>
-          )}
-        </>
-      )}
+          </div>
+        </Show>
+        <Show ifCondition={skips.length === 0}>
+          <div className="flex justify-center py-16">
+            <span className="text-gray-500">
+              No skips available for this location.
+            </span>
+          </div>
+        </Show>
+      </Show>
 
-      {skipSelected && <StepFooter />}
+      <Show ifCondition={!!skipSelected}>
+        <StepFooter />
+      </Show>
     </div>
   );
 }

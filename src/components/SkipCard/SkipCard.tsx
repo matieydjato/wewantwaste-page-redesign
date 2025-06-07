@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo } from "react";
+import Show from "../Show";
 import type { Skip } from "../../types/Skip";
 import {
   getImageUrl,
@@ -51,11 +52,11 @@ function SkipCard({ skip, isSelected, onSelect }: SkipCardProps) {
         <span className="absolute top-7 left-7 px-3 py-1 text-xs font-bold rounded-full shadow bg-gray-900 text-white">
           {size} yd³
         </span>
-        {!allowed_on_road && (
+        <Show ifCondition={!allowed_on_road}>
           <span className="absolute top-3 right-3 px-2 py-1 text-xs font-semibold rounded bg-yellow-400 text-gray-900 shadow">
             Not Allowed On Road
           </span>
-        )}
+        </Show>
       </div>
 
       <div className="flex-1 flex flex-col justify-between p-5 space-y-2">
