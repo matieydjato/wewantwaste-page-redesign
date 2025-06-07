@@ -1,54 +1,64 @@
-# React + TypeScript + Vite
+# WeWantWaste Page Redesign
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Approach
 
-Currently, two official plugins are available:
+This project is a modern React application for the WeWantWaste skip hire flow, designed with clarity, maintainability, and user experience in mind.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Key Principles
 
-## Expanding the ESLint configuration
+- **Component-Driven Architecture:**  
+  The UI is broken down into reusable, focused components (e.g., `Show`, `SkipCard`, `StepIndicator`). Each component handles a single responsibility, making the codebase easy to understand and extend.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Context and Reducer for State Management:**  
+  The skip hire flow state (current step, selected skip, postcode, etc.) is managed using React Context and a reducer. This centralizes state logic and enables predictable updates across the app.
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **React Query for Data Fetching:**  
+  Data fetching (e.g., available skips by location) is handled with [React Query](https://tanstack.com/query/latest), providing caching, loading, and error states out of the box.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **TypeScript for Type Safety:**  
+  All components and services are strongly typed, reducing runtime errors and improving developer experience.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Conditional Rendering:**  
+  The `Show` component is used throughout to handle conditional UI rendering in a declarative way.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+- **Responsive Design:** 1–2–3 column grid capped at `max-w-6xl`, centered on large screens.
+
+- **Persistence:**  
+  Selected skip data is persisted in `localStorage` to maintain user choices across sessions.
+
+- **Minimal Comments, Clear Code:**  
+  Comments are only added where necessary—complex logic, intent, or non-obvious decisions. The code is written to be self-explanatory wherever possible. Utility helpers extracted for styles (`SkipCard.utils.ts`)
+
+### Folder Structure
+
+- **`src/components/`** — Reusable UI pieces (cards, buttons, stepper, etc.)  
+- **`src/containers/`** — Page‐level components that compose multiple pieces  
+- **`src/contexts/`** — React Context Providers and state types  
+- **`src/reducers/`** — Reducer functions and action definitions  
+- **`src/hooks/`** — Custom hooks (e.g. `useSkipsByLocation`)  
+- **`src/services/`** — API clients and utility functions (e.g. formatting, image lookup)  
+- **`src/constants/`** — Static values (step keys, action types)  
+- **`src/types/`** — Shared TypeScript interfaces/types
+
+### How to Run Locally
+
+1. Clone the repo  
+   `git clone https://github.com/matieydjato/wewantwaste-page-redesign.git`  
+2. Install dependencies  
+   `npm install`  
+3. Start in development mode  
+   `npm run dev`  
+4. (Optional) Build for production  
+   `npm run build`  
+5. Preview the production build  
+   `npm run preview`
+
+---
+
+This approach ensures the project is scalable, easy to maintain, and provides a smooth user experience.
+
+## Future Improvements
+
+- Add error‐boundary UI for network failures.  
+- Enhance pagination for large skip lists (infinite scroll or server‐side pagination).  
+- Unit tests for reducers and utility functions.
