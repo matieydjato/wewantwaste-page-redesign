@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { SkipHireContext } from "../contexts";
+import SkipSelection from "./SkipSelection/SkipSelection";
 
 export default function StepContent() {
   const { state } = useContext(SkipHireContext)!;
@@ -13,7 +14,7 @@ export default function StepContent() {
       return <div>Waste Type</div>;
 
     case 2:
-      return <div>Select Skip</div>;
+      return <SkipSelection />;
 
     case 3:
       return <div>Permit Check</div>;
