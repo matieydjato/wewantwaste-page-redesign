@@ -1,13 +1,15 @@
 import { type ReactNode, useMemo, useReducer } from "react";
 import { SkipHireContext } from "../contexts";
 import { skipReducer } from "../reducers";
-import type { SkipHireState } from "../contexts/types.ts";
+import type { SkipHireState } from "../contexts/types";
 
 type SkipProviderProps = { children: ReactNode };
 
 const initialState: SkipHireState = {
   currentStepIndex: 2,
   skipSelected: null,
+  postcode: "LE10 1SH",
+  area: "Lowestoft",
 };
 
 export default function SkipHireContextProvider({

@@ -16,7 +16,10 @@ export default function SkipComponent() {
   if (!skipSelected) return null;
 
   return (
-    <div className="flex items-baseline">
+    <div
+      className="flex flex-col items-start space-y-2
++        md:flex-row md:items-baseline md:space-y-0 md:space-x-4"
+    >
       <span className="mr-4 text-md font-medium text-gray-700">
         {skipSelected.size} Yard Skip
       </span>
