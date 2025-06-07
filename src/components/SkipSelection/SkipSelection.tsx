@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useRef, useEffect, useCallback } from "react";
 import SkipCard from "../SkipCard/SkipCard";
 import StepFooter from "../StepFooter/StepFooter";
 import Show from "../Show";
@@ -16,14 +16,38 @@ export default function SkipSelection() {
     error,
   } = useSkipsByLocation(postcode, area);
 
-  // Toggle skip selection: deselect if already selected, otherwise select
-  const handleSelectSkip = (skip: Skip) => {
-    if (skipSelected?.id === skip.id) {
-      dispatch({ type: CLEAR_SKIP });
-    } else {
-      dispatch({ type: SELECT_SKIP, payload: { skip } });
+  // Ref for the selected skip card
+  const selectedSkipRef = useRef<HTMLDivElement | null>(null);
+
+  // Scroll to the selected skip card if it's not fully visible
+  useEffect(() => {
+    if (!isLoading && skipSelected && selectedSkipRef.current) {
+      const rect = selectedSkipRef.current.getBoundingClientRect();
+      const isFullyVisible =
+        rect.top >= 0 &&
+        rect.bottom <=
+          (window.innerHeight || document.documentElement.clientHeight);
+
+      if (!isFullyVisible) {
+        selectedSkipRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }
     }
-  };
+  }, [isLoading, skipSelected]);
+
+  // Memoized handler to avoid unnecessary re-renders
+  const handleSelectSkip = useCallback(
+    (skip: Skip) => {
+      if (skipSelected?.id === skip.id) {
+        dispatch({ type: CLEAR_SKIP });
+      } else {
+        dispatch({ type: SELECT_SKIP, payload: { skip } });
+      }
+    },
+    [dispatch, skipSelected]
+  );
 
   const containerClasses = skipSelected ? "pb-50 md:pb-30" : "pb-10";
 
@@ -54,14 +78,21 @@ export default function SkipSelection() {
         <Show ifCondition={skips.length > 0}>
           <div className="w-full max-w-6xl mx-auto">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {skips.map((skip) => (
-                <SkipCard
-                  key={skip.id}
-                  skip={skip}
-                  isSelected={skipSelected?.id === skip.id}
-                  onSelect={handleSelectSkip}
-                />
-              ))}
+              {skips.map((skip) => {
+                const isSelected = skipSelected?.id === skip.id;
+                return (
+                  <div
+                    key={skip.id}
+                    ref={isSelected ? selectedSkipRef : undefined}
+                  >
+                    <SkipCard
+                      skip={skip}
+                      isSelected={isSelected}
+                      onSelect={handleSelectSkip}
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </Show>
