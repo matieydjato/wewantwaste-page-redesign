@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import SkipCard from "../SkipCard";
+import SkipCard from "../SkipCard/SkipCard";
 import StepFooter from "../StepFooter/StepFooter";
 import { useSkipsByLocation } from "../../hooks";
 import { SkipHireContext } from "../../contexts";

@@ -1,5 +1,6 @@
 import { useContext, useMemo } from "react";
 import { SkipHireContext } from "../../contexts";
+import { formatPrice } from "../../services/utils";
 
 export default function SkipComponent() {
   const { state } = useContext(SkipHireContext)!;
@@ -7,10 +8,7 @@ export default function SkipComponent() {
 
   const priceWithVat = useMemo(() => {
     if (!skipSelected) return null;
-    return (
-      skipSelected.price_before_vat *
-      (1 + skipSelected.vat / 100)
-    ).toFixed(0);
+    return formatPrice(skipSelected.price_before_vat, skipSelected.vat);
   }, [skipSelected]);
 
   if (!skipSelected) return null;
