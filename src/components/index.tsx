@@ -1,4 +1,4 @@
-import StepIndicator from "./StepIndicator";
+import StepIndicator from "./StepIndicator/StepIndicator";
 import StepContent from "./StepContent";
 
 export { StepIndicator, StepContent };
