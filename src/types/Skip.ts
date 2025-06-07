@@ -9,8 +9,8 @@ export interface Skip {
   postcode: string;
   area: string;
   forbidden: boolean;
-  created_at: string; // could be `Date` if you parse it
-  updated_at: string; // same here
+  created_at: string;
+  updated_at: string;
   allowed_on_road: boolean;
   allows_heavy_waste: boolean;
 }
