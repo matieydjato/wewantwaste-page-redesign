@@ -1,5 +1,10 @@
 # WeWantWaste Page Redesign
 
+## Live Demo
+
+Try it out in your browser:  
+[SANDBOX_URL_HERE](https://codesandbox.io/p/github/matieydjato/wewantwaste-page-redesign/main?import=true)
+
 ## Project Approach
 
 This project is a modern React application for the WeWantWaste skip hire flow, designed with clarity, maintainability, and user experience in mind.
